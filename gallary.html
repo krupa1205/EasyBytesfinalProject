@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BharatEvents - Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="rangoli-bg" id="rangoliBg"></div>
+
+    <!-- Navigation -->
+    <header>
+        <div class="logo">
+            <img src="https://tse3.mm.bing.net/th?id=OIP.tejkaE4V1efwuU0cLUooDwHaHa&pid=Api&P=0&h=220" alt="BharatEvents Logo">
+            <span class="logo-text">BharatEvents</span>
+        </div>
+        
+        <nav>
+            <ul id="navMenu">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="Event.html">EVENTS</a></li>
+                <li><a href="services.html">SERVICES</a></li>
+                <li><a href="gallary.html" class="active">GALLERY</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+        </nav>
+        
+       
+        <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+        </div>
+    </header>
+
+    <!-- Gallery Hero -->
+    <section class="gallery-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Our <span>Memorable</span> Moments</h1>
+            <p class="hero-subtitle">Relive the magic of our most spectacular Indian events and celebrations</p>
+            <div class="gallery-filters" id="galleryFilters">
+                <!-- Filters will be added dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-container">
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Gallery items will be added dynamically -->
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <img id="lightboxImage" src="" alt="">
+            <div class="image-info" id="imageInfo"></div>
+            <div class="lightbox-nav">
+                <button id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                <button id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gallery-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.tejkaE4V1efwuU0cLUooDwHaHa&pid=Api&P=0&h=220" alt="BharatEvents Logo">
+                    <span>BharatEvents</span>
+                </div>
+                <p>Capturing the essence of Indian celebrations through our lens</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Event.html">Events</a></li>
+
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="sevices.html">Services</a></li>
+                    <li><a href="contact.html">contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Event Types</h3>
+                <ul>
+                    <li><a href="#">Weddings</a></li>
+                    <li><a href="#">Festivals</a></li>
+                    <li><a href="#">Birthdays</a></li>
+                    <li><a href="#">Corporate</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-phone"></i> +91 9876543210</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> gallery@bharatevents.com</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Mumbai, India</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-credits">
+            <p>&copy; 2023 BharatEvents Gallery. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="gallery.js"></script>
+</body>
+</html>

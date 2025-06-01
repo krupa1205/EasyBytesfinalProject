@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indian Cultural Event Registration</title>
+  <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Indian theme's Event's Please register your first event</h1>
+
+    <section class="event-info">
+      <div>
+        <img src="https://tse4.mm.bing.net/th?id=OIP.GRWYsuQ3vM9U7f-fChga7wHaHa&pid=Api&P=0&h=220" alt="Music Icon">
+        <p>MUSIC </p>
+      </div>
+      <div>
+        <img src="https://tse2.mm.bing.net/th?id=OIP.tfRfa5hnzLcQ8SBgfWrnEAHaHa&pid=Api&P=0&h=220" alt="Date Icon">
+        <p>DATE</p>
+      </div>
+      <div>
+        <img src="https://tse1.mm.bing.net/th?id=OIP.kQVoFYhcMomgokc7gkXUkwHaHa&pid=Api&P=0&h=220" alt="Location Icon">
+        <p>LOCATION</p>
+      </div>
+    </section>
+
+    <form>
+      <fieldset>
+        <legend>Participant Information</legend>
+        <input type="text" placeholder="First Name">
+        <input type="text" placeholder="Last Name">
+        <input type="date" placeholder="Date of Birth">
+        <input type="tel" placeholder="Phone Number">
+        <input type="email" placeholder="Email">
+      </fieldset>
+
+      <fieldset>
+        <legend>Event Details and Payment</legend>
+        <label><input type="radio" name="ticket"> General (₹500)</label>
+        <label><input type="radio" name="ticket"> VIP (₹1500)</label>
+        <label><input type="radio" name="ticket"> Group (Buy 5, get 1 Free)</label>
+
+        <input type="number" placeholder="Number of Tickets">
+
+        <label><input type="radio" name="pay"> UPI</label>
+        <label><input type="radio" name="pay"> Credit Card</label>
+        <label><input type="radio" name="pay"> Cash</label>
+        <label><input type="radio" name="type"> birthday</label>
+        <label><input type="radio" name="type"> wedding</label>
+        <label><input type="radio" name="type"> cultural</label>
+        <label><input type="radio" name="type"> corporate</label>
+        <label><input type="radio" name="type"> social</label>
+
+      </fieldset>
+
+      <fieldset>
+        <legend>Agreement & Confirmation</legend>
+        <label><input type="checkbox"> I agree to the terms & conditions</label>
+        <label><input type="checkbox"> Subscribe to updates</label>
+        <input type="text" placeholder="Signature">
+        <input type="date" placeholder="Date">
+      </fieldset>
+
+      <button type="submit">Submit Registration</button>
+    </form>
+  </div>
+  <script src="registration.js"></script>
+</body>
+</html>

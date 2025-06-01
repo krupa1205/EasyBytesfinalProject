@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BharatEvents - Experience Indian Celebrations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== PINK/MORPHIC THEME ===== */
+        :root {
+            --primary: #FF9933;
+            --secondary: #D23D73;
+            --accent: #FF99C8;
+            --dark: #9B1D40;
+            --light: #FFE6F2;
+            --white: #FFFFFF;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'comic sans MS', 'Playfair Display', sans-serif;
+        }
+
+        body {
+            background-color: #f9f5f7;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+            background-image: url('https://i.pinimg.com/originals/d8/2a/9b/d82a9b8ca5ba40bd635a112c2cf10fef.jpg');
+            background-size: cover;
+        }
+
+        /* ===== BACKGROUND ELEMENTS ===== */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 102, 178, 0.1);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float 15s infinite linear;
+        }
+
+        /* ===== NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-solid {
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 102, 178, 0.3);
+        }
+
+        .btn-solid:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(210, 61, 115, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .menu-bar {
+            width: 25px;
+            height: 3px;
+            background: var(--secondary);
+            transition: all 0.4s ease;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            padding: 180px 5% 100px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            padding: 10px 25px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-tag span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            color: var(--secondary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rotating-card {
+            width: 350px;
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            position: relative;
+            transform-style: preserve-3d;
+            animation: card-float 6s ease-in-out infinite;
+        }
+
+        .rotating-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== EVENTS SECTION ===== */
+        .events-section {
+            padding: 100px 5%;
+            background: rgba(255, 102, 178, 0.05);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(255, 102, 178, 0.3);
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .event-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-details {
+            padding: 25px;
+        }
+
+        .event-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .event-details p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-details i {
+            color: var(--primary);
+        }
+
+        /* ===== MUSIC PLAYER ===== */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+
+        #musicToggle {
+            padding: 14px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(255, 102, 178, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        #musicToggle:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(210, 61, 115, 0.4);
+        }
+
+        /* ===== BOOKING MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-modal {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .booking-modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(210, 61, 115, 0.3);
+        }
+
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: #4285F4; /* Blue color for the tick */
+            margin-bottom: 20px;
+            animation: bounce 0.6s;
+        }
+
+        .success-message h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .success-message p {
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .success-btn {
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .success-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(210, 61, 115, 0.3);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes card-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 150px;
+            }
+
+            .hero-content {
+                margin-bottom: 50px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 40px;
+            }
+
+            .hero-image {
+                height: 400px;
+            }
+
+            .rotating-card {
+                width: 300px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 90px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                gap: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.4s ease;
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu-btn.active .menu-bar:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .mobile-menu-btn.active .menu-bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-btn.active .menu-bar:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="width: 400px; height: 400px; bottom: 15%; right: 8%; animation-delay: 2s;"></div>
+        <div class="floating-element" style="width: 250px; height: 250px; top: 50%; left: 70%; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header>
+        <div class="logo">
+            <img src="https://tse3.mm.bing.net/th?id=OIP.tejkaE4V1efwuU0cLUooDwHaHa&pid=Api&P=0&h=220" alt="BharatEvents Logo">
+            <span class="logo-text">BharatEvents</span>
+        </div>
+        
+        <nav>
+            <ul id="navMenu">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="Event.html" class="active">EVENTS</a></li>
+                <li><a href="services.html">SERVICES</a></li>
+                <li><a href="gallary.html">GALLERY</a></li>
+                <li><a href="mybooking.html">MY BOOKIN</a></li>
+
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">
+                <span>EXPERIENCE INDIAN CELEBRATIONS</span>
+            </div>
+            <h1 class="hero-title">Celebrate Indian Traditions Modernly</h1>
+            <p class="hero-subtitle">From royal weddings to festive gatherings, we blend authentic Indian culture with contemporary elegance.</p>
+           
+        </div>
+        
+        <div class="hero-image">
+            <div class="rotating-card">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.hfhhx2Cd0JrqYIIcCtc47wHaHa&pid=Api&P=0&h=220" alt="Indian Wedding">
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events-section">
+        <div class="section-header">
+            <h2 class="section-title">Our Signature Events</h2>
+            <p class="section-subtitle">Experience the perfect blend of tradition and modernity with our curated events</p>
+        </div>
+        
+        <div class="events-grid" id="eventsGrid">
+            <!-- Events will be loaded dynamically via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button id="musicToggle">
+            <i class="fas fa-music"></i>
+            <span>Play BGM</span>
+        </button>
+        <audio id="bgMusic" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Music Player
+        const musicToggle = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        let isPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicToggle.innerHTML = '<i class="fas fa-music"></i><span>Play BGM</span>';
+            } else {
+                bgMusic.play();
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i><span>Pause BGM</span>';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Dynamic Events Loading
+        const eventsGrid = document.getElementById('eventsGrid');
+        const eventsData = [
+            {
+                title: "Royal Indian Wedding",
+                image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a",
+                date: "15 Dec 2023",
+                location: "Udaipur, Rajasthan",
+                price: "Starting at ₹25L",
+                badge: "Popular"
+            },
+            {
+                title: "Diwali Celebration",
+                image: "https://tse4.mm.bing.net/th?id=OIP.eHtijgyrtAc_QD0olndmHAHaEp&pid=Api&P=0&h=220",
+                date: "12 Nov 2023",
+                location: "Delhi",
+                price: "Starting at ₹5L",
+                badge: "Festival"
+            },
+            {
+                title: "Holi Festival",
+                image: "https://tse3.mm.bing.net/th?id=OIP.2QpxWBO5zt09OXP0hii_tAHaE6&pid=Api&P=0&h=220",
+                date: "8 Mar 2024",
+                location: "Mathura, UP",
+                price: "Starting at ₹3.5L",
+                badge: "Festival"
+            },
+            {
+                title: "Corporate Garba Night",
+                image: "https://tse1.mm.bing.net/th?id=OIP.RJsNXCSNnqf8Q51zPpY8UwHaEl&pid=Api&P=0&h=220",
+                date: "20 Oct 2023",
+                location: "Mumbai",
+                price: "Starting at ₹8L",
+                badge: "Corporate"
+            },
+            {
+                title: "Luxury Sangeet Ceremony",
+                image: "https://tse2.mm.bing.net/th?id=OIP.8nl4lN7fMEvytndUI6FejgHaE7&pid=Api&P=0&h=220",
+                date: "Various Dates",
+                location: "Multiple Cities",
+                price: "Starting at ₹12L",
+                badge: "Premium"
+            },
+            {
+                title: "Traditional Mehndi Night",
+                image: "https://tse4.mm.bing.net/th?id=OIP._G_-3ZrMOa6ygg9QjLpf_wHaE8&pid=Api&P=0&h=220",
+                date: "Various Dates",
+                location: "Multiple Cities",
+                price: "Starting at ₹7L",
+                badge: "Popular"
+            }
+        ];
+
+        function loadEvents() {
+            eventsGrid.innerHTML = '';
+            eventsData.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                eventCard.innerHTML = `
+                    <div class="event-badge">${event.badge}</div>
+                    <img src="${event.image}" alt="${event.title}">
+                    <div class="event-details">
+                        <h3>${event.title}</h3>
+                        <p><i class="fas fa-calendar-alt"></i> ${event.date}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${event.location}</p>
+                        <p><i class="fas fa-rupee-sign"></i> ${event.price}</p>
+                        <button class="btn btn-outline book-now-btn" style="width: 100%; margin-top: 10px;">Book Now</button>
+                    </div>
+                `;
+                eventsGrid.appendChild(eventCard);
+            });
+
+            // Add event listeners to all book now buttons
+            document.querySelectorAll('.book-now-btn').forEach(btn => {
+                btn.addEventListener('click', showBookingForm);
+            });
+        }
+
+        // Booking Form Modal
+        function showBookingForm() {
+            const modalHTML = `
+                <div class="modal-overlay" id="bookingModal">
+                    <div class="booking-modal">
+                        <div class="modal-header">
+                            <h3>Event Booking Form</h3>
+                            <button class="close-modal" id="closeModal">&times;</button>
+                        </div>
+                        
+                        <form id="bookingForm">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="eventType">Event Type</label>
+                                <select id="eventType" required>
+                                    <option value="">Select Event</option>
+                                    <option value="Wedding">Wedding</option>
+                                    <option value="Corporate">Corporate</option>
+                                    <option value="Festival">Festival</option>
+                                    <option value="Private">Private</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="guests">Number of Guests</label>
+                                <input type="number" id="guests" min="1" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="date">Preferred Date</label>
+                                <input type="date" id="date" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Special Requirements</label>
+                                <textarea id="message" rows="4"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">Submit Booking</button>
+                        </form>
+                        
+                        <div class="success-message" id="successMessage">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Booking Successful!</h3>
+                            <p>Thank you for your booking. We've sent a confirmation to your email. Our team will contact you shortly to discuss the details.</p>
+                            <button class="success-btn" id="closeSuccess">Done</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add modal to body
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            
+            // Show modal
+            const modal = document.getElementById('bookingModal');
+            modal.classList.add('active');
+            
+            // Close modal button
+            document.getElementById('closeModal').addEventListener('click', () => {
+                modal.remove();
+            });
+            
+            // Form submission
+            document.getElementById('bookingForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Here you would normally send the data to your server
+                // For demo purposes, we'll just show the success message
+                
+                // Hide form
+                document.getElementById('bookingForm').style.display = 'none';
+                // Show success message
+                document.getElementById('successMessage').classList.add('active');
+                
+                // You could add AJAX here to actually submit the form to your backend
+                /*
+                const formData = {
+                    name: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    eventType: document.getElementById('eventType').value,
+                    guests: document.getElementById('guests').value,
+                    date: document.getElementById('date').value,
+                    message: document.getElementById('message').value
+                };
+                
+                fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Show success message
+                    document.getElementById('bookingForm').style.display = 'none';
+                    document.getElementById('successMessage').classList.add('active');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error submitting your booking. Please try again.');
+                });
+                */
+            });
+            
+            // Close success message button
+            document.getElementById('closeSuccess')?.addEventListener('click', () => {
+                modal.remove();
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadEvents();
+            
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                header.style.background = window.scrollY > 50 ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)';
+            });
+        });
+        // This should be in your event.html file
+function bookEvent(eventId, ticketType, ticketCount) {
+    // Get existing bookings or create empty array
+    let bookings = JSON.parse(localStorage.getItem('userEventBookings')) || [];
+    
+    // Create new booking
+    const newBooking = {
+        id: 'BK-' + Math.random().toString(36).substr(2, 8).toUpperCase(),
+        eventId: eventId,
+        ticketType: ticketType,
+        ticketCount: ticketCount,
+        status: 'confirmed', // or 'pending' if payment is required
+        bookingDate: new Date().toISOString()
+    };
+    
+    // Add to bookings
+    bookings.push(newBooking);
+    
+    // Save to localStorage
+    localStorage.setItem('userEventBookings', JSON.stringify(bookings));
+    
+    // Show confirmation
+    alert(`Booking successful! Your booking ID is ${newBooking.id}`);
+    
+    // Optionally redirect to bookings page
+    // window.location.href = 'user_bookings.html';
+}
+// Example booking button in event.html
+document.getElementById('book-button').addEventListener('click', function() {
+    const eventId = 'EVT-001'; // This should be dynamic based on the event
+    const ticketType = document.getElementById('ticket-type').value;
+    const ticketCount = document.getElementById('ticket-count').value;
+    
+    bookEvent(eventId, ticketType, ticketCount);
+});
+// In your event.html file
+function handleBooking(eventCard) {
+    // Get event details from the clicked card
+    const eventTitle = eventCard.querySelector('h3').textContent;
+    const eventDate = eventCard.querySelector('p:nth-of-type(1)').textContent.replace('📅 ', '');
+    const eventLocation = eventCard.querySelector('p:nth-of-type(2)').textContent.replace('📍 ', '');
+    const eventImage = eventCard.querySelector('img').src;
+
+    // Create booking modal
+    const modalHTML = `
+        <div class="modal-overlay" id="bookingModal">
+            <div class="booking-modal">
+                <div class="modal-header">
+                    <h3>Book ${eventTitle}</h3>
+                    <button class="close-modal" id="closeModal">&times;</button>
+                </div>
+                
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ticketType">Ticket Type</label>
+                        <select id="ticketType" required>
+                            <option value="">Select Ticket Type</option>
+                            <option value="General Admission">General Admission</option>
+                            <option value="VIP">VIP</option>
+                            <option value="Premium">Premium</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ticketCount">Number of Tickets</label>
+                        <input type="number" id="ticketCount" min="1" required>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Confirm Booking</button>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Booking Successful!</h3>
+                    <p>Thank you for your booking. We've sent a confirmation to your email.</p>
+                    <button class="success-btn" id="closeSuccess">Done</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Add modal to body
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Show modal
+    const modal = document.getElementById('bookingModal');
+    modal.classList.add('active');
+    
+    // Close modal button
+    document.getElementById('closeModal').addEventListener('click', () => {
+        modal.remove();
+    });
+    
+    // Form submission
+    document.getElementById('bookingForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Get form values
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const ticketType = document.getElementById('ticketType').value;
+        const ticketCount = document.getElementById('ticketCount').value;
+        
+        // Create booking
+        const bookingId = 'BK-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+        
+        // Get existing bookings or create empty array
+        let bookings = JSON.parse(localStorage.getItem('userEventBookings')) || [];
+        
+        // Create new booking
+        const newBooking = {
+            id: bookingId,
+            eventTitle: eventTitle,
+            eventDate: eventDate,
+            eventLocation: eventLocation,
+            eventImage: eventImage,
+            ticketType: ticketType,
+            ticketCount: ticketCount,
+            status: 'confirmed',
+            bookingDate: new Date().toISOString(),
+            customerName: fullName,
+            customerEmail: email,
+            customerPhone: phone
+        };
+        
+        // Add to bookings
+        bookings.push(newBooking);
+        
+        // Save to localStorage
+        localStorage.setItem('userEventBookings', JSON.stringify(bookings));
+        
+        // Hide form and show success message
+        document.getElementById('bookingForm').style.display = 'none';
+        document.getElementById('successMessage').classList.add('active');
+        
+        // Update success message with booking ID
+        document.querySelector('#successMessage p').innerHTML = `
+            Thank you for your booking! Your booking ID is <strong>${bookingId}</strong>.
+            We've sent a confirmation to ${email}.
+        `;
+    });
+    
+    // Close success message button
+    document.getElementById('closeSuccess')?.addEventListener('click', () => {
+        modal.remove();
+    });
+}
+
+// Update the event card creation to include booking functionality
+function loadEvents() {
+    eventsGrid.innerHTML = '';
+    eventsData.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.className = 'event-card';
+        eventCard.innerHTML = `
+            <div class="event-badge">${event.badge}</div>
+            <img src="${event.image}" alt="${event.title}">
+            <div class="event-details">
+                <h3>${event.title}</h3>
+                <p><i class="fas fa-calendar-alt"></i> ${event.date}</p>
+                <p><i class="fas fa-map-marker-alt"></i> ${event.location}</p>
+                <p><i class="fas fa-rupee-sign"></i> ${event.price}</p>
+                <button class="btn btn-outline book-now-btn" style="width: 100%; margin-top: 10px;">Book Now</button>
+            </div>
+        `;
+        eventsGrid.appendChild(eventCard);
+        
+        // Add click handler to book now button
+        eventCard.querySelector('.book-now-btn').addEventListener('click', () => {
+            handleBooking(eventCard);
+        });
+    });
+}
+    </script>
+</body>
+</html>

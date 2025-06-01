@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - Indian Events</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Comic Sans MS', 'Comic Neue', cursive;
+            background: linear-gradient(135deg, #ffd6e7 0%, #c1f0f0 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background-color: #e84393;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #e84393 0%, #0984e3 50%, #00cec9 100%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        
+        .booking-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border-left: 8px solid #e84393;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .booking-card::before {
+            content: "✨";
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 24px;
+            opacity: 0.3;
+        }
+        
+        .booking-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e84393;
+            margin-bottom: 10px;
+            border-bottom: 2px dashed #00cec9;
+            padding-bottom: 8px;
+        }
+        
+        .booking-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .detail-item {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: #0984e3;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .booking-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .status-confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .booking-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .action-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Comic Sans MS', cursive;
+            transition: all 0.3s;
+        }
+        
+        .cancel-btn {
+            background-color: #e84393;
+            color: white;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #d6306e;
+            transform: translateY(-2px);
+        }
+        
+        .modify-btn {
+            background-color: #0984e3;
+            color: white;
+        }
+        
+        .modify-btn:hover {
+            background-color: #0768b3;
+            transform: translateY(-2px);
+        }
+        
+        .no-bookings {
+            text-align: center;
+            padding: 50px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        
+        .no-bookings a {
+            color: #e84393;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .no-bookings a:hover {
+            text-decoration: underline;
+        }
+        
+        .indian-decoration {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .decoration-1 {
+            top: 50px;
+            left: 50px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="%23e84393"/></svg>');
+        }
+        
+        .decoration-2 {
+            bottom: 50px;
+            right: 50px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%230984e3"/></svg>');
+        }
+        
+        .filter-container {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .filter-label {
+            margin-right: 10px;
+            color: #e84393;
+            font-weight: bold;
+        }
+        
+        #status-filter {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 2px solid #00cec9;
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #f8f9fa;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #e84393;
+        }
+
+        .modal-title {
+            color: #e84393;
+            margin-top: 0;
+            border-bottom: 2px dashed #00cec9;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #0984e3;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #00cec9;
+            border-radius: 8px;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        .submit-btn {
+            background-color: #0984e3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', cursive;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #0768b3;
+        }
+
+        /* Confirmation dialog styles */
+        .confirmation-dialog {
+            text-align: center;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .confirm-btn {
+            background-color: #e84393;
+            color: white;
+        }
+
+        .cancel-dialog-btn {
+            background-color: #0984e3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Indian decorative elements -->
+    <div class="indian-decoration decoration-1"></div>
+    <div class="indian-decoration decoration-2"></div>
+    
+    <div class="header">
+        <h1>🪷 My Event Bookings 🪷</h1>
+    </div>
+    
+    <div class="container">
+        <div class="filter-container">
+            <span class="filter-label">Filter by Status:</span>
+            <select id="status-filter">
+                <option value="all">All Bookings</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="pending">Pending</option>
+            </select>
+        </div>
+        
+        <div id="bookings-list">
+            <!-- Bookings will be loaded here -->
+            <div class="no-bookings" id="no-bookings-message">
+                <h2>No Bookings Yet! 😊</h2>
+                <p>You haven't made any bookings yet. <a href="event.html">Browse our Indian events</a> to book your tickets!</p>
+                <img src="https://tse4.mm.bing.net/th?id=OIP.em4kWy6Es2kSw0cco9llPQHaE6&pid=Api&P=0&h=220" alt="Indian event illustration" width="200">
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Confirmation Modal -->
+    <div id="cancel-modal" class="modal">
+        <div class="modal-content">
+            <div class="confirmation-dialog">
+                <h3 class="modal-title">Confirm Cancellation</h3>
+                <p>Are you sure you want to cancel this booking? This action cannot be undone.</p>
+                <div class="confirmation-buttons">
+                    <button id="confirm-cancel-btn" class="action-btn confirm-btn">Yes, Cancel</button>
+                    <button id="cancel-dialog-btn" class="action-btn cancel-dialog-btn">No, Keep It</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modify Booking Modal -->
+    <div id="modify-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 class="modal-title">Modify Your Booking</h3>
+            <form id="modify-form">
+                <div class="form-group">
+                    <label for="ticket-count">Number of Tickets</label>
+                    <input type="number" id="ticket-count" min="1" max="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="ticket-type">Ticket Type</label>
+                    <select id="ticket-type" required>
+                        <option value="general">General Admission</option>
+                        <option value="vip">VIP</option>
+                        <option value="premium">Premium</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Update Booking</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // This will store all bookings from event.html
+        let userBookings = JSON.parse(localStorage.getItem('userEventBookings')) || [];
+        let currentBookingId = null;
+        
+        // Sample Indian events data (would be replaced with your actual events)
+        const indianEvents = {
+            "EVT-001": {
+                name: "Diwali Festival Celebration",
+                date: "2023-11-12",
+                time: "6:00 PM",
+                location: "Delhi Convention Center",
+                image: "https://i.imgur.com/Jz1qQ0a.jpg"
+            },
+            "EVT-002": {
+                name: "Bollywood Night",
+                date: "2023-12-05",
+                time: "8:00 PM",
+                location: "Mumbai Grand Hotel",
+                image: "https://i.imgur.com/8XzQq9J.jpg"
+            },
+            "EVT-003": {
+                name: "Yoga Retreat",
+                date: "2023-10-15",
+                time: "6:00 AM",
+                location: "Rishikesh Yoga Center",
+                image: "https://i.imgur.com/5tQzQ9J.jpg"
+            }
+        };
+        
+        // Function to display bookings
+        function displayBookings() {
+            const bookingsList = document.getElementById('bookings-list');
+            const noBookingsMsg = document.getElementById('no-bookings-message');
+            
+            // Filter out cancelled bookings (they should be completely removed)
+            userBookings = userBookings.filter(booking => booking.status !== 'cancelled');
+            
+            if (userBookings.length === 0) {
+                noBookingsMsg.style.display = 'block';
+                // Update localStorage to remove cancelled bookings
+                localStorage.setItem('userEventBookings', JSON.stringify(userBookings));
+                return;
+            }
+            
+            noBookingsMsg.style.display = 'none';
+            bookingsList.innerHTML = '';
+            
+            userBookings.forEach(booking => {
+                const event = indianEvents[booking.eventId] || {
+                    name: "Special Event",
+                    date: "2023-12-31",
+                    time: "8:00 PM",
+                    location: "India",
+                    image: "https://i.imgur.com/3VQZ9Qp.png"
+                };
+                
+                // Determine status class
+                let statusClass = '';
+                if (booking.status === 'confirmed') statusClass = 'status-confirmed';
+                else if (booking.status === 'pending') statusClass = 'status-pending';
+                
+                const bookingCard = document.createElement('div');
+                bookingCard.className = 'booking-card';
+                bookingCard.setAttribute('data-status', booking.status);
+                
+                bookingCard.innerHTML = `
+                    <div class="booking-title">${event.name}</div>
+                    <div class="booking-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Booking ID</div>
+                            <div>${booking.id}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Date & Time</div>
+                            <div>${formatDate(event.date)} • ${event.time}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Tickets</div>
+                            <div>${booking.ticketCount} x ${getTicketTypeName(booking.ticketType)}</div>
+                        </div>
+                    </div>
+                    <div class="booking-status ${statusClass}">${booking.status.toUpperCase()}</div>
+                    <div class="booking-actions">
+                        <button class="action-btn modify-btn">${booking.status === 'pending' ? 'Pay Now' : 'Modify'}</button>
+                        <button class="action-btn cancel-btn">Cancel</button>
+                    </div>
+                `;
+                
+                bookingsList.appendChild(bookingCard);
+            });
+            
+            // Add event listeners to buttons
+            document.querySelectorAll('.cancel-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentBookingId = this.closest('.booking-card').querySelector('.detail-item:first-child div:last-child').textContent;
+                    document.getElementById('cancel-modal').style.display = 'flex';
+                });
+            });
+            
+            document.querySelectorAll('.modify-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const bookingId = this.closest('.booking-card').querySelector('.detail-item:first-child div:last-child').textContent;
+                    const booking = userBookings.find(b => b.id === bookingId);
+                    
+                    if (booking) {
+                        currentBookingId = bookingId;
+                        document.getElementById('ticket-count').value = booking.ticketCount;
+                        document.getElementById('ticket-type').value = booking.ticketType || 'general';
+                        document.getElementById('modify-modal').style.display = 'flex';
+                    }
+                });
+            });
+        }
+        
+        // Helper function to get ticket type name
+        function getTicketTypeName(type) {
+            const types = {
+                'general': 'General Admission',
+                'vip': 'VIP',
+                'premium': 'Premium'
+            };
+            return types[type] || 'General';
+        }
+        
+        // Function to cancel a booking (now completely removes it)
+        function cancelBooking(bookingId) {
+            userBookings = userBookings.filter(booking => booking.id !== bookingId);
+            
+            localStorage.setItem('userEventBookings', JSON.stringify(userBookings));
+            displayBookings();
+            closeModal('cancel-modal');
+            alert("Booking has been cancelled and removed!");
+        }
+        
+        // Function to modify a booking
+        function modifyBooking(bookingId, ticketCount, ticketType) {
+            userBookings = userBookings.map(booking => {
+                if (booking.id === bookingId) {
+                    return {
+                        ...booking,
+                        ticketCount: parseInt(ticketCount),
+                        ticketType: ticketType
+                    };
+                }
+                return booking;
+            });
+            
+            localStorage.setItem('userEventBookings', JSON.stringify(userBookings));
+            displayBookings();
+            closeModal('modify-modal');
+            alert("Booking updated successfully!");
+        }
+        
+        // Helper function to format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-IN', options);
+        }
+        
+        // Helper function to close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Filter functionality
+        document.getElementById('status-filter').addEventListener('change', function() {
+            const status = this.value;
+            const bookingCards = document.querySelectorAll('.booking-card');
+            
+            bookingCards.forEach(card => {
+                if (status === 'all' || card.getAttribute('data-status') === status) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        
+        // Modal event listeners
+        document.getElementById('confirm-cancel-btn').addEventListener('click', function() {
+            if (currentBookingId) {
+                cancelBooking(currentBookingId);
+            }
+        });
+        
+        document.getElementById('cancel-dialog-btn').addEventListener('click', function() {
+            closeModal('cancel-modal');
+        });
+        
+        document.querySelector('.close-btn').addEventListener('click', function() {
+            closeModal('modify-modal');
+        });
+        
+        document.getElementById('modify-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const ticketCount = document.getElementById('ticket-count').value;
+            const ticketType = document.getElementById('ticket-type').value;
+            
+            if (currentBookingId) {
+                modifyBooking(currentBookingId, ticketCount, ticketType);
+            }
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                closeModal('cancel-modal');
+                closeModal('modify-modal');
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', displayBookings);
+    </script>
+</body>
+</html>

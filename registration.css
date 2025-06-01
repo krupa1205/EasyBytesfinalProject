@@ -1,0 +1,109 @@
+/* indian-style.css - ORIGINAL FORM BACKGROUND WITH ICON FIXES */
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(to right, #bc4053, #add8e6);
+  background-image: url('theme.png');
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.form-container {
+  max-width: 700px;
+  margin: auto;
+  background: #cb9b90; /* ORIGINAL PINKISH FORM BG */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  margin-top: 2rem;
+  border: 2px solid #ff7669b2; /* Added border to match */
+}
+
+/* ICON STYLING (EXACTLY LIKE YOUR SCREENSHOT) */
+h1 {
+  text-align: center;
+  color: #cb5151d0;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+h1::before {
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-image: url('https://tse4.mm.bing.net/th?id=OIP.yriD3_yGULG4MlDVClTlzAHaF-&pid=Api&P=0&h=220');
+  background-size: contain;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.event-info {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: #ffebee; /* Light pink to match form */
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.event-info img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.3rem;
+}
+
+/* REST OF YOUR ORIGINAL CSS (UNCHANGED) */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+fieldset {
+  border: 2px dashed #ff69b44e;
+  border-radius: 10px;
+  padding: 1rem;
+  background: #ffebee; /* Original fieldset color */
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+legend {
+  font-weight: bold;
+  color: #ff696976;
+  font-size: 1.1rem;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+input[type="date"], 
+input[type="number"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+label {
+  display: block;
+  margin-top: 0.5rem;
+  color: #4e342e;
+}
+
+button {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #4e342e;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #3e2723;
+}

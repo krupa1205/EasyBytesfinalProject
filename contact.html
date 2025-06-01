@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <style>
+    body {
+      font-family: Comic Sans MS, sans-serif;
+      background: #fff9f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      line-height: 1.6;
+      background-image: url('https://wallpapercave.com/wp/KQ1qA4s.jpg');
+      background-size: cover;
+    }
+
+    .nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .nav a {
+      color: #b65575f6;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    h1 {
+      color: #e91e63;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #e91e63;
+      border-bottom: 2px solid #ffb6c1;
+      padding-bottom: 5px;
+      margin-top: 30px;
+    }
+
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      background-color: rgba(255,255,255,0.9);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .contact-form {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    textarea {
+      height: 100px;
+    }
+
+    button {
+      background: #e91e63;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .contact-info ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .contact-info li {
+      margin-bottom: 15px;
+      position: relative;
+      padding-left: 25px;
+    }
+
+    .contact-info li:before {
+      content: "•";
+      color: #e91e63;
+      font-size: 24px;
+      position: absolute;
+      left: 0;
+      top: -5px;
+    }
+
+    .flower {
+      position: fixed;
+      font-size: 24px;
+      color: #ff69b4;
+      z-index: -1;
+      animation: fall linear forwards;
+      opacity: 0.7;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    #confirmation {
+      color: green;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="Event.html">Event</a>
+    <a href="services.html">Services</a>
+    <a href="gallary.html">Gallery</a>
+    <a href="contact.html">Contact Us</a>
+  </div>
+
+  <h1>Contact</h1>
+
+  <div class="contact-container">
+    <div class="contact-form">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <textarea id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <p id="confirmation"></p>
+    </div>
+
+    <div class="contact-info">
+      <h2>Our Information</h2>
+      <ul>
+        <li>Gujarat, Ahmedabad</li>
+        <li>+91 9825800421</li>
+        <li>krupaparmar803@gmail.com</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Flower animation
+    function createFlowers() {
+      const flowers = ['🌸'];
+      setInterval(() => {
+        const flower = document.createElement('div');
+        flower.className = 'flower';
+        flower.textContent = flowers[0];
+        flower.style.left = `${Math.random() * 100}vw`;
+        flower.style.top = '-50px';
+        flower.style.fontSize = `${20 + Math.random() * 20}px`;
+        flower.style.animationDuration = `${8 + Math.random() * 10}s`;
+        document.body.appendChild(flower);
+        setTimeout(() => {
+          flower.remove();
+        }, 20000);
+      }, 800);
+    }
+
+    window.onload = createFlowers;
+
+    // Form submission
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const confirmation = document.getElementById("confirmation");
+
+      if (name && email && phone && message) {
+        confirmation.textContent = `Thank you ${name}! We will contact you soon. Our team is excited to assist you!`;
+        confirmation.style.color = "green";
+        this.reset();
+      } else {
+        confirmation.textContent = "Please fill out all fields.";
+        confirmation.style.color = "red";
+      }
+    });
+  </script>
+
+</body>
+</html>
